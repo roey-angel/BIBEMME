@@ -1,5 +1,18 @@
 \ProvidesFile{ismej.cbx}[biblatex style for The ISME Journal]
 
+% Build on authoryear-comp citation style
 \RequireCitationStyle{authoryear-comp}
+
+%% General options to match the ELE requirements
+\ExecuteBibliographyOptions
+  {
+    maxcitenames = 2, % display only one cited author name (except if only 2) in citation
+    mincitenames = 1, % display at least one author in citation
+    sortcites = true, % sort multiple citations according to global sort option 
+    labelyear=true, % Whether or not to provide the special ﬁelds labelyear and extrayear.
+    uniquename=false, % Don't disambiguate individual names in the labelname list
+    uniquelist=false, % Don't disambiguate the labelname list
+  }
+
 
 \endinput

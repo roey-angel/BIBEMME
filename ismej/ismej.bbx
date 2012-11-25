@@ -6,9 +6,8 @@
 % 3. This style is intended to work with the biber processor. For instance, the journal abbreviations functionality (see below) cannot be acheived using bibtex. 
 % 4. Journal abbreviation is not a standard bibtex field. Abbreviation of journal names can be acheived however in two ways using a special biber.conf file in XML format or using the \DeclareSourcemap command (biblatex 2.2). For more infor see: http://tex.stackexchange.com/questions/76241/show-journal-abbreviation-in-reference-list-with-biblatex-biber?rq=1
 % 5. To deal with journal abbreviations I've prepared an additional files with search and replace strings for some 50+ journals and their abbreviations. This file should be inserted in the preamble using `\input{JourAbs.map}`. Naturally there are many other journals which I did not include but the file should be easily edited to extend the list (norice though that each journal should be inserted twice -- once using `\step[ fieldsource = journal,` and the other time using `\step[ fieldsource = journaltitle,`.
-% 6. According to ISMEJ reference style, multiple ciatations should be sorted by year (e.g. (Pugsley, 1996; Matsunaga et al., 1997)) which conflicts with the alphabetical sorting in the references. The solution is to call biblatex with the option sortcites = false and to cite multiple sources in chronological order.
-% 7. 
-% 8. This style controls the formatting of only the following reference types: article, book and incollection. Other types are too rare and in any case are not formally described in the EMI Aothor Guidlines..
+% 6. According to ISMEJ reference style, multiple ciatations should be sorted by year (e.g. (Pugsley, 1996; Matsunaga et al., 1997)) which conflicts with the alphabetical sorting in the references. The solution is to usde \printbibliography[sorting=nyt] in the document.
+% 7. This style defines explicitly the formatting of only the following reference types: article, book and incollection. Other types are too rare and in any case are not formally described in the ISMEJ author guidelines..
 % 9. This citation style is unofficial, and supplied 'as is' with no warranty whatsoever. i.e. don't blame me if you get an angry mail from the journal production office :)
 
 %% Thanks to the wonderful people at http://tex.stackexchange.com for helping me out solving nomerous issues and getting this style to work.
@@ -21,22 +20,17 @@
 %% Please send me feedback/ bug reports/ suggestions!!
 
 %% Usage: place .bbx and .cbx files in your tex path and add the following to the preamble
-% \usepackage[style=emi, 
-%     natbib=true, 
-%     labelyear=true, % Whether or not to provide the special ﬁelds labelyear and extrayear.
-%     uniquename=true, % Don't disambiguate individual names in the labelname list
-%     uniquelist=false, % Don't disambiguate the labelname list
-%     sortcites = false,  
-%     backend=biber]{biblatex}% use biblatex for refs with Author-Year style
+% \usepackage[style=ismej, natbib=true, backend=biber]{biblatex}
 % \addbibresource{YOUR_BIB_FILE.bib} % the .bib file
+%% Then add bibliography list in the document using: \printbibliography[sorting=nyt]
 
 %% TODO 
 % 
 
 \usepackage{xpatch} % only needed for running \xpretobibmacro
 
-%% We build on the original author-year comp
-\RequireBibliographyStyle{standard}
+%% Build on authoryear-comp
+%\RequireBibliographyStyle{standard}
 \RequireBibliographyStyle{authoryear-comp}
 
 %% Use British local; change 'editor' to '(ed).' and 'editors' to '(eds).'
@@ -50,22 +44,17 @@
 %% General options to match the ELE requirements
 \ExecuteBibliographyOptions
   {
+    clearlang=true, % clear language if equal to the one defined by babel
     doi = false, % do not display doi 
     eprint = false, % 
     firstinits = true, % author first name as initials
     terseinits = true, % author initials witout period-space
     isbn = false, % do not display isbn
-    maxcitenames = 2, % display only one cited author name (except if only 2) in citation
-    mincitenames = 1, % display at least one author in citation
     minbibnames = 6, % display at least 6 authors in bibliography
     maxbibnames = 6, % display at most 6 authors in bibliography
     url = true, % display url
     dashed = false, 
-    sorting = nyt, % sort bibliography by: name - year - title
-    sortcites = false, 
-    labelyear=true, % Whether or not to provide the special ﬁelds labelyear and extrayear.
-    uniquename=false, % Don't disambiguate individual names in the labelname list
-    uniquelist=false, % Don't disambiguate the labelname list
+    sorting = ynt, % sort bibliography by: year - name - title (only for multiple citations, in the bibliography use \printbibliography[sorting=nyt]
   }
 
 %% Load journal abbreviations
@@ -141,8 +130,10 @@
 \DeclareFieldFormat[article]{pages}{#1}
 \DeclareFieldFormat[article]{volume}{#1\addcolon\space}
 
-%% Last author is separated by a comma 
-\renewcommand*{\finalnamedelim}{\addcomma\space}
+%% Last author is separated by a comma in the bibliography list (bit with 'and' in the citation)
+\AtBeginBibliography{%
+  \renewcommand*{\finalnamedelim}{\addcomma\space}%
+}
 
 %% Period after last author 
 
