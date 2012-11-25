@@ -1,0 +1,311 @@
+\ProvidesFile{EMI.bbx}[biblatex style for Environmental Microbiology]
+
+%% Notes:
+% 1. biblatex style for the journal Environmental Microbiology. According to the Author Guidlines (http://www.wiley.com/bw/submit.asp?ref=1462-2912)
+% 2. This style is based on geb.bbx by Timothée Poisot (https://github.com/tpoisot/ecobiblatex)
+% 3. This style is intended to work with the biber processor. For instance, the journal abbreviations functionality (see below) cannot be acheived using bibtex. 
+% 4. Journal abbreviation is not a standard bibtex field. Abbreviation of journal names can be acheived however in two ways using a special biber.conf file in XML format or using the \DeclareSourcemap command (biblatex 2.2). For more infor see: http://tex.stackexchange.com/questions/76241/show-journal-abbreviation-in-reference-list-with-biblatex-biber?rq=1
+% 5. To deal with journal abbreviations I've prepared an additional files with search and replace strings for some 50+ journals and their abbreviations. This file should be inserted in the preamble using `\input{JourAbs.map}`. Naturally there are many other journals which I did not include but the file should be easily edited to extend the list (norice though that each journal should be inserted twice -- once using `\step[ fieldsource = journal,` and the other time using `\step[ fieldsource = journaltitle,`.
+% 6. According to EMI reference style, multiple ciatations should be sorted by year (e.g. (Pugsley, 1996; Matsunaga et al., 1997)) which conflicts with the alphabetical sorting in the references. The solution is to call biblatex with the option sortcites = false and to cite multiple sources in chronological order.
+% 7. EMI also has some weird requirements for the reference list. In general the list should be alphabetical but: 1. "Articles with more than two authors should follow those of the first named author in chronological order" and 2. "with multiple references from the same first author in a given year, please list the references in cited order." I have no idea how to control this so I simply decided to ignore these requirements (with the hopes that they will take care of it themselves).
+% 8. This style controls the formatting of only the following reference types: article, book and incollection. Other types are too rare and in any case are not formally described in the EMI Aothor Guidlines..
+% 9. This citation style is unofficial, and supplied 'as is' with no warranty whatsoever. i.e. don't blame me if you get an angry mail from the journal production office :)
+
+%% Thanks to the wonderful people at http://tex.stackexchange.com for helping me out solving nomerous issues and getting this style to work.
+
+%%%%%%%%%%%%%%%%%%%
+% Roey Angel, November 2012     %
+% angel@mpi-marburg.mpg.de     %
+%%%%%%%%%%%%%%%%%%%
+
+%% Please send me feedback/ bug reports/ suggestions!!
+
+%% Usage: place .bbx and .cbx files in your tex path and add the following to the preamble
+% \usepackage[style=emi, 
+%     natbib=true, 
+%     labelyear=true, % Whether or not to provide the special ﬁelds labelyear and extrayear.
+%     uniquename=true, % Don't disambiguate individual names in the labelname list
+%     uniquelist=false, % Don't disambiguate the labelname list
+%     sortcites = false,  
+%     backend=biber]{biblatex}% use biblatex for refs with Author-Year style
+% \addbibresource{YOUR_BIB_FILE.bib} % the .bib file
+
+%% TODO 
+
+
+%% We build on the original author-year comp
+\RequireBibliographyStyle{standard}
+\RequireBibliographyStyle{authoryear-comp}
+
+%% Use British local; change 'editor' to '(ed).', 'editors' to '(eds).' and 'edition' to '(edn).'
+\DefineBibliographyStrings{british}{
+    bibliography = {Bibliography},
+    shorthands = {Abbreviations},
+    editor = {ed},
+    editors = {eds},
+    edition = {edn},
+}
+
+%% General options to match the EMI requirements
+\ExecuteBibliographyOptions{
+    clearlang=true, % clear language if equal to the one defined by babe
+    doi = false, % do not display doi 
+    eprint = false, % 
+    firstinits = true, % author first name as initials
+    terseinits = false, % author initials with period
+    isbn = false, % do not display isbn
+    maxcitenames = 2, % display only one cited author name (except if only 2) in citation
+    mincitenames = 1, % display at least one author in citation
+    minbibnames = 6, % display at least 6 authors in bibliography
+    maxbibnames = 7, % display at most 7 authors in bibliography
+    url = true, % display url
+    dashed = false, % do not replace recurrring author and editor names with a dash
+    sorting = noneyear, % sort bibliography by: name - year - title
+    sortcites = false, 
+    %labelyear=true, % Whether or not to provide the special ﬁelds labelyear and extrayear.
+    %uniquename=false, % Don't disambiguate individual names in the labelname list
+    %uniquelist=false, % Don't disambiguate the labelname list
+  }
+
+%% EMI has quite a sadistic sorting scheme, but this seems to solve it (do not forget to call \printbibliography[sorting=emi])
+%% In addition: load journal abbreviations
+\DeclareSourcemap{
+  \maps[datatype=bibtex]{
+    \map[overwrite]{
+      \step[fieldsource=author,match=\regexp{\s+and\s.+\s+and\s},final]
+      \step[fieldset=sortname,origfieldval]
+      \step[fieldsource=sortname,match=\regexp{\s+and\s.+},replace={\ and\ Zzz}]
+    }
+    \input{JourAbs.map}
+  }
+}
+
+\DeclareSortingScheme{noneyear}{
+  \sort{\citeorder}
+  \sort{\field{year}}
+}
+
+\DeclareSortingScheme{emi}{
+  \sort{
+    \field{sortname}
+    \field{author}
+  }
+  \sort{\field{year}}
+  \sort{\citeorder}
+}
+
+%% Only the year is important
+\AtEveryBibitem{%
+  \clearfield{day}%
+  \clearfield{month}%
+  \clearfield{endday}%
+  \clearfield{endmonth}%
+}
+
+%% Redefine 'editor' so that the last name doesn't receive a comma after the initials
+\renewbibmacro*{editor}{%
+  \ifboolexpr{
+    test \ifuseeditor
+    and
+    not test {\ifnameundef{editor}}
+  }
+    {\printnames{editor}%
+     \setunit{\addspace}% 
+     \printtext[parens]{\usebibmacro{editorstrg}}% 
+     \clearname{editor}}
+    {}
+}
+ 
+\renewbibmacro*{editor+others}{%
+  \ifboolexpr{
+    test \ifuseeditor
+    and
+    not test {\ifnameundef{editor}}
+  }
+    {\printnames{editor}%
+     \setunit{\addspace}% 
+     \printtext[parens]{\usebibmacro{editor+othersstrg}}.% 
+     \clearname{editor}}
+    {}
+}
+
+%% Display only journal volume (no issue)
+\renewbibmacro*{journal+issuetitle}{%
+  \usebibmacro{journal}%
+  \setunit*{\addspace}%
+  \usebibmacro{volume+number+eid}%
+  \newunit
+}
+
+\renewbibmacro*{volume+number+eid}{%
+  \printfield{volume}%
+  \setunit*{\addspace}%
+  \printfield{eid}%
+}
+
+%% Location and publisher are separated by colon
+\newbibmacro*{location+publisher}{%
+  \printlist{location}%
+  \setunit{\addcolon\space}%
+  \printlist{publisher}%
+}
+
+%% Titles are in upright, no quotes
+\DeclareFieldFormat[article,book,inbook,incollection,inproceedings,patent,thesis,unpublished]{title}{#1\isdot}
+
+%% booktitle = book,inbook,incollection
+\DeclareFieldFormat[book,inbook,incollection]{booktitle}{#1}
+
+%% Articles have no page number indication (no 'PP.')
+\DeclareFieldFormat[article]{pages}{#1}
+\DeclareFieldFormat[article]{volume}{#1\addcolon\space}
+
+%% Last author is separated by a comma and the word 'and'
+\renewcommand*{\finalnamedelim}{\addcomma\addspace and\space}
+
+%% Authors are Name, F.S.
+\DeclareNameAlias{sortname}{last-first}
+
+%% The initials are not separeted by space
+\renewcommand*{\bibinitdelim}{}
+
+%% Italicise et al.
+\renewbibmacro*{name:andothers}{% Based on name:andothers from biblatex.def
+  \ifboolexpr{
+    test {\ifnumequal{\value{listcount}}{\value{liststop}}}
+    and
+    test \ifmorenames
+  }
+    {\ifnumgreater{\value{liststop}}{1}
+       {\finalandcomma}
+       {}%
+     \andothersdelim\bibstring[\emph]{andothers}}
+    {}}
+
+%% Declare 'article'
+\DeclareBibliographyDriver{article}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{author/translator+others}%
+  \addspace
+  \usebibmacro{title}%
+  \newunit\newblock
+  \usebibmacro{byauthor}%
+  \newunit\newblock
+  \usebibmacro{bytranslator+others}%
+  \newunit\newblock
+  \printfield{version}%
+  \newunit\newblock%
+  \usebibmacro{journal+issuetitle}%
+  \newunit
+  \usebibmacro{byeditor+others}%
+  \newunit
+  \usebibmacro{note+pages}%
+%   \newunit\newblock
+%   \usebibmacro{doi+eprint}%
+  \newunit\newblock
+  \usebibmacro{addendum+pubstate}%
+  \setunit{\bibpagerefpunct}\newblock
+  \usebibmacro{pageref}%
+  \newunit\newblock
+  \usebibmacro{related}%
+  \newunit
+  \printlist{language}%
+  \usebibmacro{finentry}
+}
+
+%% Declare 'book'
+\DeclareBibliographyDriver{book}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{author/editor+others/translator+others}%
+  \setunit{\labelnamepunct}\newblock
+  \usebibmacro{maintitle+title}%
+  \addcomma\addspace
+  \printfield{edition}%
+  \newunit\newblock
+  \usebibmacro{editor+others}%
+  \newunit
+  \iffieldundef{maintitle}
+    {\printfield{volume}%
+     \printfield{part}}
+    {}%
+  \newunit
+  \printfield{volumes}%
+  \newunit\newblock
+  \usebibmacro{series+number}%
+  \newunit\newblock
+  \printfield{note}%
+  \newunit\newblock
+  \usebibmacro{location+publisher}%
+  \newunit\newblock
+  \usebibmacro{chapter+pages}%
+  \newunit
+  \printfield{pagetotal}%
+  \newunit\newblock
+  \iftoggle{bbx:isbn}
+    {\printfield{isbn}}
+    {}%
+%   \newunit\newblock
+%   \usebibmacro{doi+eprint}%
+  \newunit\newblock
+  \usebibmacro{addendum+pubstate}%
+  \setunit{\bibpagerefpunct}\newblock
+  \usebibmacro{pageref}%
+  \newunit\newblock
+  \usebibmacro{related}%
+  \newunit
+  \printlist{language}%
+  \usebibmacro{finentry}
+}
+
+%% Declare 'incollection' (independent book chapter)
+\DeclareBibliographyDriver{incollection}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{author/translator+others}%
+  \setunit{\labelnamepunct}\newblock
+  \usebibmacro{title}%
+  \newunit\newblock
+  \usebibmacro{byauthor}%
+  \newunit\newblock
+  \printtext{In}%
+  \addspace
+  \usebibmacro{maintitle+booktitle}%
+  \addcomma\addspace
+  \printfield{edition}%
+  \newunit\newblock
+  \usebibmacro{editor+others}%
+  \newunit
+  \iffieldundef{maintitle}
+    {\printfield{volume}%
+     \printfield{part}}
+    {}%
+  \newunit
+  \printfield{volumes}%
+  \newunit\newblock
+  \usebibmacro{series+number}%
+  \newunit\newblock
+  \printfield{note}%
+  \newunit\newblock
+  \usebibmacro{location+publisher}%
+  \newunit\newblock
+  \usebibmacro{chapter+pages}%
+  \newunit\newblock
+  \iftoggle{bbx:isbn}
+    {\printfield{isbn}}
+    {}%
+%   \newunit\newblock
+%   \usebibmacro{doi+eprint+url}%
+  \newunit\newblock
+  \usebibmacro{addendum+pubstate}%
+  \setunit{\bibpagerefpunct}\newblock
+  \usebibmacro{pageref}%
+  \newunit\newblock
+  \usebibmacro{related}%
+  \newunit
+  \printlist{language}%
+  \usebibmacro{finentry}
+}
+
+\endinput
