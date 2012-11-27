@@ -76,6 +76,9 @@
       		match = \regexp{Genome\sResearch},
       		replace = {Genome Res}]
        \step[ fieldsource = journal,
+      		match = \regexp{Geochimica\set\sCosmochimica\sActa},
+      		replace = {Geochim Cosmochim Acta}]
+       \step[ fieldsource = journal,
       		match = \regexp{Global\sBiogeochemical\sCycles},
       		replace = {Global Biogeochem Cycles}]
        \step[ fieldsource = journal,
@@ -240,6 +243,9 @@
        \step[ fieldsource = journaltitle,
       		match = \regexp{Genome\sResearch},
       		replace = {Genome Res}]
+       \step[ fieldsource = journaltitle,
+      		match = \regexp{Geochimica\set\sCosmochimica\sActa},
+      		replace = {Geochim Cosmochim Acta}]
        \step[ fieldsource = journaltitle,
       		match = \regexp{Global\sBiogeochemical\sCycles},
       		replace = {Global Biogeochem Cycles}]
