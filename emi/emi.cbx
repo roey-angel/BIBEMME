@@ -11,4 +11,12 @@
     uniquelist=false, % Don't disambiguate the labelname list
   }
 
+%% Only the year is important
+\AtEveryCitekey{%
+  \clearfield{day}%
+  \clearfield{month}%
+  \clearfield{endday}%
+  \clearfield{endmonth}%
+}
+
 \endinput
