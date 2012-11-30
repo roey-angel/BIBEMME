@@ -142,8 +142,9 @@
   \printlist{publisher}%
 }
 
-%% Titles are in upright, no quotes
+%% Titles are in upright, no quotes and in title case
 \DeclareFieldFormat[article,book,inbook,incollection,inproceedings,patent,thesis,unpublished]{title}{#1\isdot}
+\DeclareFieldFormat[article]{titlecase}{\MakeSentenceCase*{#1}}
 
 %% booktitle = book,inbook,incollection
 \DeclareFieldFormat[book,inbook,incollection]{booktitle}{#1}
@@ -152,8 +153,10 @@
 \DeclareFieldFormat[article]{pages}{#1}
 \DeclareFieldFormat[article]{volume}{#1\addcolon\space}
 
-%% Last author is separated by a comma and the word 'and'
-\renewcommand*{\finalnamedelim}{\addcomma\addspace and\space}
+%% Last author is separated by a comma+and in the bibliography list (but only with 'and' in the citation)
+\AtBeginBibliography{%
+  \renewcommand*{\finalnamedelim}{\addcomma\addspace and\space}
+}
 
 %% Authors are Name, F.S.
 \DeclareNameAlias{sortname}{last-first}
