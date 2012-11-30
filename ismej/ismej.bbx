@@ -28,7 +28,7 @@
 %% Then add bibliography list in the document using: \printbibliography[sorting=nyt]
 
 %% TODO 
-% 
+% 1. incollection pp instead of pp.
 
 \usepackage{xpatch} % only needed for running \xpretobibmacro
 
@@ -63,7 +63,7 @@
 %% Load journal abbreviations
 \DeclareSourcemap{
   \maps[datatype=bibtex,overwrite=true]{
-  \input{JourAbs.map}
+  \input{JourAbs-Index_Medicus.map}
   }
 }
 
@@ -244,12 +244,12 @@
   \newunit\newblock
   \usebibmacro{byauthor}%
   \newunit\newblock
-  \printtext{In}%
+  \printtext{In:}%
   \addspace
-  \usebibmacro{maintitle+booktitle}%
-  \newunit\newblock
   \usebibmacro{editor+others}%
   \newunit
+  \usebibmacro{maintitle+booktitle}%
+  \newunit\newblock
   \iffieldundef{maintitle}
     {\printfield{volume}%
      \printfield{part}}
