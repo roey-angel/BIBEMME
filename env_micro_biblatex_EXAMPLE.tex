@@ -1,8 +1,5 @@
 %% LyX 2.0.5 created this file.  For more info, see http://www.lyx.org/.
 %% Do not edit unless you really know what you are doing.
-
-% Compile using: xelatex -> biber -> xelatex 
-
 \RequirePackage{fix-cm}
 \documentclass[12pt,british]{scrartcl}
 \usepackage{fontspec}
@@ -27,7 +24,7 @@
 
 \makeatletter
 \@ifundefined{date}{}{\date{}}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
 %% Document related
 
 % Cancel hyphnation
@@ -35,8 +32,9 @@
 
 %% Bibliography/ links
 \usepackage[style=emi, natbib=true, backend=biber]{biblatex}% use biblatex for refs 
+\DeclareFieldFormat{titlecase}{\MakeSentenceCase*{#1}}
 
-\addbibresource{env_micro_biblatex_EXAMPLE.bib} % the .bib file
+\addbibresource{/usr/share/texmf/tex/latex/biblatex-contrib/my-contrib/biblatex-env_micro/env_micro_biblatex_EXAMPLE.bib} % the .bib file
 
 \renewrobustcmd*{\citet}{% this command turns author (year) to (author year)
   \@ifstar
