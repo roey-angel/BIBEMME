@@ -5,10 +5,12 @@
 % 2. This style is based on geb.bbx by Timothée Poisot (https://github.com/tpoisot/ecobiblatex)
 % 3. This style is intended to work with the biber processor. For instance, the journal abbreviations functionality (see below) cannot be achieved using bibtex. 
 % 4. Journal abbreviation is not a standard bibtex field. Abbreviation of journal names can be achieved however in two ways using a special biber.conf file in XML format or using the \DeclareSourcemap command (biblatex 2.2 and above). For more info see: http://tex.stackexchange.com/questions/76241/show-journal-abbreviation-in-reference-list-with-biblatex-biber?rq=1
-% 5. To deal with journal abbreviations I've prepared an additional file with search and replace strings for some 50+ journals and their abbreviations. This file should be placed in the same directory as the LaTeX document. Naturally there are many other journals which I did not include but the file should be easily edited to extend the list (notice though that each journal should be inserted twice -- once using `\step[ fieldsource = journal,` and the other time using `\step[ fieldsource = journaltitle,`.
-% 6. According to ISME J reference style, multiple citations should be sorted by year (e.g. (Pugsley, 1996; Matsunaga et al., 1997)) which conflicts with the alphabetical sorting in the references. The solution is to use \printbibliography[sorting=nyt] in the document.
-% 7. This style defines explicitly the formatting of only the following reference types: article, book and incollection. Other types are too rare and in any case are not formally described in the ISMEJ author guidelines..
-% 8. This citation style is unofficial, and supplied 'as is' with no warranty whatsoever. i.e. don't blame me if you get an angry mail from the journal production office :)
+% 5. To deal with journal abbreviations I've prepared an additional file (JourAbs-Index_Medicus.map) with search and replace strings for some 50+ journals and their abbreviations. This file should be placed in the same directory as the LaTeX document. Naturally there are many other journals which I did not include but the file should be easily edited to extend the list (notice though that each journal should be inserted twice -- once using `\step[ fieldsource = journal,` and the other time using `\step[ fieldsource = journaltitle,`.
+% 6. Do note that different journals use slightly different abbreviations styles, so be sure to use the right .map file for the journal and edit it according to the journal style.
+% 7. According to ISME J reference style, multiple citations should be sorted by year (e.g. (Pugsley, 1996; Matsunaga et al., 1997)) which conflicts with the alphabetical sorting in the references. The solution is to use \printbibliography[sorting=nyt] in the document.
+% 8. The line \DeclareFieldFormat[article]{titlecase}{\MakeSentenceCase*{#1}} and the following one, below, force a sentence case on article and book chapter titles. To prevent std. acronyms like PCR or DNA, or proper names from being affected simply surround them with curly brackets ot comment this line.
+% 9. This style defines explicitly the formatting of only the following reference types: article, book and incollection. Other types are too rare and in any case are not formally described in the ISMEJ author guidelines..
+% 10. This citation style is unofficial, and supplied 'as is' with no warranty whatsoever. i.e. don't blame me if you get an angry mail from the journal production office :)
 
 % Copyright (C) 2012 Roey Angel angel@mpi-marburg.mpg.de
 % Distributed under the terms of the GNU General Public License Version 3.
@@ -99,7 +101,7 @@
   }
     {\printnames{editor}%
      \setunit{\addspace}% 
-     \printtext[parens]{\usebibmacro{editor+othersstrg}}.% 
+     \printtext[parens]{\usebibmacro{editor+othersstrg}}% 
      \clearname{editor}}
     {}
 }
@@ -127,12 +129,15 @@
 
 %% Titles are in upright, no quotes and in title case
 \DeclareFieldFormat[article,book,inbook,incollection,inproceedings,patent,thesis,unpublished]{title}{#1\isdot}
-\DeclareFieldFormat{titlecase}{\MakeSentenceCase{#1}}
+\DeclareFieldFormat[article]{titlecase}{\MakeSentenceCase*{#1}}
+\DeclareFieldFormat[incollection]{titlecase}{\MakeSentenceCase*{#1}}
+\DeclareFieldFormat[inbook]{titlecase}{\MakeSentenceCase*{#1}}
+\DeclareFieldFormat[inproceedings]{titlecase}{\MakeSentenceCase*{#1}}
 
 %% booktitle = book,inbook,incollection
 \DeclareFieldFormat[book,inbook,incollection]{booktitle}{#1}
 
-%% Articles have no page number indication (no 'PP.')
+%% Articles have no page number indication (no 'PP')
 \DeclareFieldFormat[article]{pages}{#1}
 \DeclareFieldFormat[article]{volume}{#1\addcolon\space}
 
