@@ -199,7 +199,7 @@
   \usebibmacro{author/editor+others/translator+others}%
   \addspace
   \usebibmacro{maintitle+title}%
-  \addcomma\addspace
+  \newunit\newblock
   \printfield{edition}%
   \newunit\newblock
   \usebibmacro{editor+others}%
@@ -248,7 +248,54 @@
   \usebibmacro{byauthor}%
   \newunit\newblock
   \usebibmacro{maintitle+booktitle}%
-  \addcomma\addspace
+  \newunit\newblock
+  \printfield{edition}%
+  \addspace
+  \usebibmacro{editor+others}%
+  \addspace
+  \iffieldundef{maintitle}
+    {\printfield{volume}%
+     \printfield{part}}
+    {}%
+  \newunit
+  \printfield{volumes}%
+  \newunit\newblock
+  \usebibmacro{series+number}%
+  \newunit\newblock
+  \printfield{note}%
+  \newunit\newblock
+  \usebibmacro{chapter+pages}%
+  \newunit\newblock
+  \usebibmacro{location+publisher}%
+  \newunit\newblock
+  \iftoggle{bbx:isbn}
+    {\printfield{isbn}}
+    {}%
+%   \newunit\newblock
+%   \usebibmacro{doi+eprint+url}%
+  \newunit\newblock
+  \usebibmacro{addendum+pubstate}%
+  \setunit{\bibpagerefpunct}\newblock
+  \usebibmacro{pageref}%
+  \newunit\newblock
+  \usebibmacro{related}%
+  \newunit
+  \printlist{language}%
+  \usebibmacro{finentry}
+}
+
+%% Declare 'inproceedings' (independent article in conference proceedings)
+\DeclareBibliographyDriver{inproceedings}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{author/translator+others}%
+  \addspace
+  \usebibmacro{title}%
+  \newunit\newblock
+  \usebibmacro{byauthor}%
+  \newunit\newblock
+  \usebibmacro{maintitle+booktitle}%
+  \newunit\newblock
   \printfield{edition}%
   \addspace
   \usebibmacro{editor+others}%
