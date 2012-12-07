@@ -1,6 +1,6 @@
-# BIBEMME -- biblatex styles for journals of environmental microbiology and microbial ecology #
+# BIBEMME #
+## Biblatex styles for journals of environmental microbiology and microbial ecology ##
 
-A set of biblatex citation styles for journals of environmental microbiology and microbial ecology.
 All styles are designed to work with [biblatex](http://bit.ly/Sn6Bjx) 2.3 and above alongside with [biber](http://bit.ly/SjJLe6).  
 In constructing the styles I referred to the author guidelines of each journal but also to publications from latest issues, since there are occasional conflicts or missing guidelines regarding some types of sources or special cases. Each style defines explicitly the formatting of only the following bibtex reference types: article, book and incollection. Other types are too rare and in any case are not formally described in the author guidelines.
 
