@@ -1,4 +1,4 @@
-# biblatex-env_micro #
+# BIBEMME -- biblatex styles for journals of environmental microbiology and microbial ecology #
 
 A set of biblatex citation styles for journals of environmental microbiology and microbial ecology.
 All styles are designed to work with [biblatex](http://bit.ly/Sn6Bjx) 2.3 and above alongside with [biber](http://bit.ly/SjJLe6).  
