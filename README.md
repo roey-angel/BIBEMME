@@ -18,11 +18,12 @@ This project was inspired by Timothée Poisot's [ecobiblatex](http://bit.ly/10Tl
 
 ### Usage: ###
 Please refer to .bbx file of each individual style for specific instructions.  
+
 1. Place the .bbx and .cbx files in your tex path (e.g. `$TEXMFLOCAL/tex/latex/biblatex` in linux) and add the following to the preamble:  
 `\usepackage[style=STYLE_NAME, natbib=true, backend=biber]{biblatex}`  
 `\addbibresource{YOUR_BIB_FILE.bib}`  
 The style and .bib source names should, of course, be replaced by the desired citation style and your personal bibtex collection file.  
-2. For styles requiring journal name abbreviations (all styles at the moment), the file `JourAbs.map` or a link to it must be placed withing the same directory as the LaTeX document.
+2. For styles requiring journal name abbreviations (all styles at the moment), the file `JourAbs.map` or a link to it must be placed withing the same directory as the LaTeX document.  
 3. Add a bibliography list in the document using: `\printbibliography[sorting=STYLESPECIFICSORT]`. Typically the references should be sorted using `\printbibliography[sorting=nyt]` but note that some styles might require a different sorting scheme (e.g. emi).
 
 ## Currently available styles ##
