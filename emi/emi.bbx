@@ -8,7 +8,7 @@
 % 5. Do note that different journals use slightly different abbreviations styles, so be sure to use the right .map file for the journal and edit it according to the journal style.
 % 6. According to EMI reference style, multiple citations should be sorted by year (e.g. (Pugsley, 1996; Matsunaga et al., 1997)) which conflicts with the alphabetical sorting in the references. The solution is to use \printbibliography[sorting=emi] in the document.
 % 7. EMI also has some weird requirements for the reference list. In general the list should be alphabetical but: 1. "Articles with more than two authors should follow those of the first named author in chronological order" and 2. "with multiple references from the same first author in a given year, please list the references in cited order." This is also sorted out through the use of \printbibliography[sorting=emi]
-% 8. The line \DeclareFieldFormat[...]{titlecase}{\MakeSentenceCase*{#1}}, force a sentence case on article and book chapter titles. To prevent std. acronyms like PCR or DNA, or proper names from being affected simply surround them with curly brackets ot comment this line.
+% 8. The line \DeclareFieldFormat[...]{titlecase}{\MakeSentenceCase*{#1}}, force a sentence case on article and book chapter titles. To prevent std. acronyms like PCR or DNA, or proper names from being affected simply surround them with curly brackets or comment this line.
 % 9. This style controls the formatting of only the following reference types: article, book, incollection and inproceedings. Other types are too rare and in any case are not formally described in the EMI author guidelines..
 % 10. This citation style is unofficial, and supplied 'as is' with no warranty whatsoever. i.e. don't blame me if you get an angry mail from the journal production office :)
 
@@ -183,7 +183,7 @@
     {}
 }
 
-%% Location and publisher are separated by colon
+%% Location and publisher are separated by a colon
 \newbibmacro*{location+publisher}{%
   \printlist{location}%
   \setunit{\addcolon\space}%

@@ -7,7 +7,7 @@
 % 4. To deal with journal abbreviations I've prepared an additional file (JourAbs-Index_Medicus.map) with search and replace strings for some 50+ journals and their abbreviations. This file should be placed in the same directory as the LaTeX document. Naturally there are many other journals which I did not include but the file should be easily edited to extend the list (notice though that each journal should be inserted twice -- once using `\step[ fieldsource = journal,` and the other time using `\step[ fieldsource = journaltitle,`.
 % 5. Do note that different journals use slightly different abbreviations styles, so be sure to use the right .map file for the journal and edit it according to the journal style.
 % 6. According to ISME J reference style, multiple citations should be sorted by year (e.g. (Pugsley, 1996; Matsunaga et al., 1997)) which conflicts with the alphabetical sorting in the references. The solution is to use \printbibliography[sorting=nyt] in the document.
-% 7. The line \DeclareFieldFormat[...]{titlecase}{\MakeSentenceCase*{#1}}, force a sentence case on article and book chapter titles. To prevent std. acronyms like PCR or DNA, or proper names from being affected simply surround them with curly brackets ot comment this line.
+% 7. The line \DeclareFieldFormat[...]{titlecase}{\MakeSentenceCase*{#1}}, force a sentence case on article and book chapter titles. To prevent std. acronyms like PCR or DNA, or proper names from being affected simply surround them with curly brackets or comment this line.
 % 8. This style defines explicitly the formatting of only the following reference types: article, book, incollection and inproceedings. Other types are too rare and in any case are not formally described in the ISMEJ author guidelines..
 % 9. This citation style is unofficial, and supplied 'as is' with no warranty whatsoever. i.e. don't blame me if you get an angry mail from the journal production office :)
 
@@ -46,7 +46,7 @@
     pages = {pp},
 }
 
-%% General options to match the ELE requirements
+%% General options to match the ISMEJ requirements
 \ExecuteBibliographyOptions{%
     clearlang=true, % clear language if equal to the one defined by babel
     doi = false, % do not display doi 
@@ -137,13 +137,6 @@
 %% booktitle = book,inbook,incollection
 \DeclareFieldFormat[book,inbook,incollection]{booktitle}{#1}
 
-%% No edition in book title. location and publisher are separated by colon
-\newbibmacro*{publisher+location}{%
-  \printlist{publisher}%
-  \setunit{\addcolon\space}%
-  \printlist{location}%  
-}
-
 %% Redefine 'editor' so that the last name doesn't receive a comma after the initials
 \renewbibmacro*{editor}{%
   \ifboolexpr{%
@@ -169,6 +162,13 @@
      \printtext[parens]{\usebibmacro{editor+othersstrg}}% 
      \clearname{editor}}
     {}
+}
+
+%% No edition in book title. location and publisher are separated by a colon
+\newbibmacro*{publisher+location}{%
+  \printlist{publisher}%
+  \setunit{\addcolon\space}%
+  \printlist{location}%  
 }
 
 %% Declare 'article'

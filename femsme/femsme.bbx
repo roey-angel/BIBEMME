@@ -7,7 +7,7 @@
 % 4. To deal with journal abbreviations I've prepared an additional file (JourAbs_ISI.map) with search and replace strings for some 50+ journals and their abbreviations. This file should be placed in the same directory as the LaTeX document. Naturally there are many other journals which I did not include but the file should be easily edited to extend the list (notice though that each journal should be inserted twice -- once using `\step[ fieldsource = journal,` and the other time using `\step[ fieldsource = journaltitle,`.
 % 5. Do note that different journals use slightly different abbreviations styles, so be sure to use the right .map file for the journal and edit it according to the journal style.
 % 6. According to FEMS ME reference style, multiple citations should be sorted by year (e.g. (Pugsley, 1996; Matsunaga et al., 1997)) which conflicts with the alphabetical sorting in the references. The solution is to use \printbibliography[sorting=nyt] in the document.
-% 7. The line \DeclareFieldFormat[...]{titlecase}{\MakeSentenceCase*{#1}} and the following one, below, force a sentence case on article and book chapter titles. To prevent std. acronyms like PCR or DNA, or proper names from being affected simply surround them with curly brackets ot comment this line.
+% 7. The line \DeclareFieldFormat[...]{titlecase}{\MakeSentenceCase*{#1}} and the following one, below, force a sentence case on article and book chapter titles. To prevent std. acronyms like PCR or DNA, or proper names from being affected simply surround them with curly brackets or comment this line.
 % 8. This style controls the formatting of only the following reference types: article, book, incollection and inproceedings. Other types are too rare and in any case are not formally described in the EMI author guidelines..
 % 9. This citation style is unofficial, and supplied 'as is' with no warranty whatsoever. i.e. don't blame me if you get an angry mail from the journal production office :)
 
@@ -42,7 +42,7 @@
     editors = {eds},
 }
 
-%% General options to match the EMI requirements
+%% General options to match the FEMSME requirements
 \ExecuteBibliographyOptions{%
     clearlang=true, % clear language if equal to the one defined by babel
     doi = false, % do not display doi 
@@ -132,13 +132,6 @@
 \DeclareFieldFormat[book,inbook,incollection]{booktitle}{\textit{#1}}
 \DeclareFieldFormat[book]{title}{\textit{#1}}
 
-%% Location and publisher are separated by comma
-\newbibmacro*{location+publisher}{%
-   \printlist{publisher}%
-  \setunit{\addcomma\space}%
-  \printlist{location}%
-}
-
 %% Redefine 'editor' so that the last name doesn't receive a comma after the initials
 \renewbibmacro*{editor}{%
   \ifboolexpr{%
@@ -164,6 +157,13 @@
      \usebibmacro{editor+othersstrg}% 
      \clearname{editor}}}
     {}
+}
+
+%% Location and publisher are separated by a comma
+\newbibmacro*{location+publisher}{%
+   \printlist{publisher}%
+  \setunit{\addcomma\space}%
+  \printlist{location}%
 }
 
 %% Declare 'article'
