@@ -1,0 +1,107 @@
+%% LyX 2.0.5 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\RequirePackage{fix-cm}
+\documentclass[11pt,british]{scrartcl}
+\usepackage{fontspec}
+\setmainfont[Mapping=tex-text]{DejaVu Serif}
+\setsansfont[Mapping=tex-text]{DejaVu Sans}
+\setmonofont[Scale=0.8]{DejaVu Sans Mono}
+\usepackage[a4paper]{geometry}
+\geometry{verbose,tmargin=2.5cm,bmargin=2.5cm,lmargin=2.5cm,rmargin=2.5cm}
+\usepackage{color}
+\definecolor{page_backgroundcolor}{rgb}{1, 1, 1}
+\pagecolor{page_backgroundcolor}
+\usepackage{babel}
+\usepackage{fixltx2e}
+\usepackage{setspace}
+\doublespacing
+\usepackage[unicode=true,
+ bookmarks=true,bookmarksnumbered=false,bookmarksopen=false,
+ breaklinks=true,pdfborder={0 0 0},backref=false,colorlinks=true]
+ {hyperref}
+\hypersetup{pdftitle={Test Document - AEM},
+ pdfauthor={Roey Angel}}
+
+\makeatletter
+\@ifundefined{date}{}{\date{}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
+%% Document related
+
+% Cancel hyphnation
+%\usepackage[none]{hyphenat} % required for submitting to most jrounals
+
+%% Bibliography/ links
+\usepackage[style=aem, natbib=true, backend=biber]{biblatex}% use biblatex for refs 
+
+\addbibresource{/usr/share/texmf/tex/latex/biblatex-contrib/my-contrib/BIBEMME/BIBEMME_EXAMPLE.bib} % the .bib file
+
+\renewrobustcmd*{\citet}{% this command turns author (year) to (author year)
+  \@ifstar
+    {\AtNextCite{\defcounter{maxnames}{999}}%
+     \parencite}
+    {\parencite}}
+\usepackage{refstyle}
+
+% get a hyperlink for year only citations
+\DeclareCiteCommand{\citeyear}
+    {}
+    {\bibhyperref{\printdate}}
+    {, }
+    {}
+
+\DeclareCiteCommand{\citeyearpar}
+    {}
+    {\mkbibparens{\bibhyperref{\printdate}}}
+    {, }
+    {}
+
+%% Colour related
+%\@ifundefined{definecolor}{\usepackage{color}}{}
+\usepackage[ dvipsnames,hyperref]{xcolor}
+
+\usepackage[version=3]{mhchem} % chemistry symbols (which appear in some titles)
+
+%% Reference related
+\hypersetup{ % in the hyperref package - set link colors as follows
+  colorlinks,
+  citecolor=NavyBlue,
+  urlcolor=NavyBlue}
+
+\makeatother
+
+\usepackage{xunicode}
+\begin{document}
+
+\title{Test Document}
+
+
+\subtitle{For testing reference styles of journals in environmental microbiology
+and microbial ecology\vspace{-5ex}}
+
+\maketitle
+\noindent \begin{flushleft}
+\textbf{\Large Journal:}{\Large{} }\textbf{\textit{\Large \href{http://bit.ly/S5C6ie}{Environmental Microbiology}}}
+\par\end{flushleft}{\Large \par}
+
+
+
+
+\section*{Some sample text}
+
+This is how an article reference looks like \citet{angel2012effectof}
+and another article from the same year and first author \citet{angel2012methanogenic}.
+An article with many authors \citet{boetius2000amarine}. An article
+with exactly 7 authors \citet{oficteru2010combined}. Article with
+only 2 authors \citet{penning2007quantification}. Same authors a
+year earlier to test the order of appearance in the references \citet{penning2006carbonisotope}.
+An article cited only by year \citeyearpar{vorholt2012microbial}.
+Citing two references at once \citet{oremland1992importance,heckman2001molecular}.
+A book chapter \citet{belnap2003disturbance}. And an entire book
+\citet{fenchel1998bacterial}.
+
+\newpage{}\pdfbookmark[1]{References}{References}
+
+
+
+\printbibliography[sorting=none]
+\end{document}

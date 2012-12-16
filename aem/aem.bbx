@@ -1,0 +1,333 @@
+\ProvidesFile{aem.bbx}[biblatex style for Applied and Environmental Microbiology]
+
+%% Notes:
+% 1. biblatex style for the journal Applied and Environmental Microbiology. According to the INSTRUCTIONS TO AUTHORS (http://aem.asm.org/site/misc/journal-ita_org.xhtml#03)
+% 2. This style is intended to work with the biber processor. For instance, the journal abbreviations functionality (see below) cannot be achieved using bibtex. 
+% 3. Journal abbreviation is not a standard bibtex field. Abbreviation of journal names can be achieved however in two ways using a special biber.conf file in XML format or using the \DeclareSourcemap command (biblatex 2.2 above). For more infor see: http://tex.stackexchange.com/questions/76241/show-journal-abbreviation-in-reference-list-with-biblatex-biber?rq=1
+% 4. To deal with journal abbreviations I've prepared an additional file (JourAbs-Index_Medicus_with_periods.map) with search and replace strings for some 50+ journals and their abbreviations. This file should be placed in the same directory as the LaTeX document. Naturally there are many other journals which I did not include but the file should be easily edited to extend the list (notice though that each journal should be inserted twice -- once using `\step[ fieldsource = journal,` and the other time using `\step[ fieldsource = journaltitle,`.
+% 5. Do note that different journals use slightly different abbreviations styles, so be sure to use the right .map file for the journal and edit it according to the journal style.
+% 6. According to AEM INSTRUCTIONS TO AUTHORS, multiple citations should be sorted by name (e.g. (Matsunaga et al., 1997; Pugsley, 1996)) which conflicts with the sorting by appearance in the references. I wasn't able to resolve this like in the other styles (for this case it gave an error), so the solution is to manually insert multiple citations alphabetically.
+% 6. The line \DeclareFieldFormat[...]{titlecase}{\MakeSentenceCase*{#1}}, force a sentence case on article and book chapter titles. To prevent std. acronyms like PCR or DNA, or proper names from being affected simply surround them with curly brackets or comment this line.
+% 7. This style controls the formatting of only the following reference types: article, book, incollection and inproceedings. Other types are too rare and in any case are not formally described in the EMI author guidelines..
+% 8. This citation style is unofficial, and supplied 'as is' with no warranty whatsoever. i.e. don't blame me if you get an angry mail from the journal production office :)
+
+% Copyright (C) 2012 Roey Angel angel@mpi-marburg.mpg.de
+% Distributed under the terms of the GNU General Public License Version 3.
+
+%% Thanks to the wonderful people at http://tex.stackexchange.com for helping me out solving numerous issues and getting this style to work.
+
+%%%%%%%%%%%%%%%%%%%
+% Roey Angel, December 2012     %
+% angel@mpi-marburg.mpg.de     %
+%%%%%%%%%%%%%%%%%%%
+
+%% Please send me feedback/ bug reports/ suggestions!!
+
+%% Usage: place .bbx and .cbx files in your tex path and add the following to the preamble
+% \usepackage[style=aem, natbib=true, backend=biber]{biblatex}
+% \addbibresource{YOUR_BIB_FILE.bib} % the .bib file
+%% Then add bibliography list in the document using: \printbibliography[sorting=none]
+
+%% TODO 
+%
+
+%% Build on numeric-comp
+\RequireBibliographyStyle{numeric-comp}
+
+%% Use British local; change 'editor' to '(ed).' and 'editors' to '(eds).'
+\DefineBibliographyStrings{british}{%
+    bibliography = {Bibliography},
+    shorthands = {Abbreviations},
+    editor = {ed},
+    editors = {ed},
+    page = {p.},
+    pages = {p.},
+    edition = {ed},
+}
+
+%% General options to match the AEM requirements
+\ExecuteBibliographyOptions{%
+    clearlang=true, % clear language if equal to the one defined by babel
+    doi = false, % do not display doi 
+    eprint = false, % 
+    isbn = false, % do not display isbn
+    firstinits = true, % author first name as initials
+    terseinits = true, % author initials witout period-space
+    minbibnames = 999, % display all authors in bibliography
+    maxbibnames = 999, % display all authors in bibliography
+    url = true, % display url
+    sorting = none, % do not sort bibliography (but multiple citation should be inserted alphabetically)
+  }
+
+%% Load journal abbreviations
+\DeclareSourcemap{%
+  \maps[datatype=bibtex,overwrite=true]{%
+  \input{JourAbs-NCBI+periods.map}
+  }
+}
+
+%% Authors are Name, F.S.
+\DeclareNameAlias{default}{last-first}
+
+%% Last author is separated by a comma in the bibliography list 
+\AtBeginBibliography{%
+  \renewcommand*{\finalnamedelim}{\addcomma\space}%
+}
+
+%% Only the year is important
+\AtEveryBibitem{%
+  \clearfield{day}%
+  \clearfield{month}%
+  \clearfield{endday}%
+  \clearfield{endmonth}%
+}
+
+%% Titles are in upright, no quotes and in title case
+\DeclareFieldFormat[article,book,inbook,incollection,inproceedings,patent,thesis,unpublished]{title}{#1\isdot}
+
+% Redefine journal bibmacro so that journal name isn't affected by \MakeSentenceCase*
+\newbibmacro*{journal}{%
+  \iffieldundef{journaltitle}
+    {}
+    {\printtext[journaltitle]{%
+       \printfield[myplain]{journaltitle}%
+       \setunit{\subtitlepunct}%
+       \printfield[myplain]{journalsubtitle}}}}
+\DeclareFieldFormat{myplain}{#1}
+
+% Force sentence case for journal title
+\DeclareFieldFormat[article,inbook,incollection,inproceedings,patent,thesis,unpublished]{titlecase}{\MakeSentenceCase*{#1}}
+
+% Display only journal volume (no issue)
+\renewbibmacro*{journal+issuetitle}{%
+  \usebibmacro{journal}%
+  \setunit*{\addspace}%
+  \usebibmacro{volume+number+page}%
+  \newunit
+}
+
+\renewbibmacro*{volume+number+page}{%
+  \mkbibbold{\printfield{volume}}%
+  \printfield{pages}
+}
+
+%% Articles have no page number indication (no 'PP')
+\DeclareFieldFormat[article]{pages}{#1}
+\DeclareFieldFormat[article]{volume}{#1\addcolon}
+
+%% booktitle = book,inbook,incollection
+\DeclareFieldFormat[book,inbook,incollection]{booktitle}{#1}
+
+%% Location and publisher are separated by comma
+\newbibmacro*{location+publisher}{%
+   \printlist{publisher}%
+  \setunit{\addcomma\space}%
+  \printlist{location}%
+}
+
+%% Redefine 'editor' so that the last name doesn't receive a comma after the initials
+\renewbibmacro*{editor}{%
+  \ifboolexpr{%
+    test \ifuseeditor
+    and
+    not test {\ifnameundef{editor}}
+  }
+    {\printnames{editor}%
+     \setunit{\addspace}% 
+     \printtext[parens]{\usebibmacro{editorstrg}}% 
+     \clearname{editor}}
+    {}
+}
+ 
+\renewbibmacro*{editor+others}{%
+  \ifboolexpr{%
+    test \ifuseeditor
+    and
+    not test {\ifnameundef{editor}}
+  }
+    {\printnames{editor}%
+     \setunit{\addspace}% 
+     \printtext[parens]{\usebibmacro{editor+othersstrg}}% 
+     \clearname{editor}}
+    {}
+}
+
+%% Location and publisher are separated by a comma
+\newbibmacro*{publisher+location}{%
+  \printlist{publisher}%
+  \setunit{\addcomma\space}%
+  \printlist{location}%  
+}
+
+%% Declare 'article'
+\DeclareBibliographyDriver{article}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \mkbibbold{\usebibmacro{author/translator+others}
+  \newunit\newblock}%
+  \printfield{year}
+  \newunit\newblock
+  \usebibmacro{title}%
+  \newunit\newblock
+  \usebibmacro{byauthor}%
+  \newunit\newblock
+  \usebibmacro{bytranslator+others}%
+  \newunit\newblock
+  \printfield{version}%
+  \newunit\newblock%
+  \usebibmacro{journal+issuetitle}%
+  \newunit
+  \usebibmacro{byeditor+others}%
+%   \newunit\newblock
+%   \usebibmacro{doi+eprint}%
+  \newunit\newblock
+  \usebibmacro{addendum+pubstate}%
+  \setunit{\bibpagerefpunct}\newblock
+  \usebibmacro{pageref}%
+  \newunit\newblock
+  \usebibmacro{related}%
+  \newunit
+  \printlist{language}%
+  \usebibmacro{finentry}
+}
+
+%% Declare 'book'
+\DeclareBibliographyDriver{book}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \mkbibbold{\usebibmacro{author/editor+others/translator+others}}%
+  \setunit{\labelnamepunct}\newblock
+  \usebibmacro{maintitle+title}%
+  \addcomma\space
+  \printfield{edition}%
+  \addcomma\space
+  \usebibmacro{chapter+pages}%
+  \newunit\newblock
+  \usebibmacro{editor+others}%
+  \newunit
+  \iffieldundef{maintitle}
+    {\printfield{volume}%
+     \printfield{part}}
+    {}%
+  \newunit
+  \printfield{volumes}%
+  \newunit\newblock
+  \usebibmacro{series+number}%
+  \newunit\newblock
+  \printfield{note}%
+  \newunit\newblock
+  \usebibmacro{publisher+location}%
+  \newunit
+  \printfield{pagetotal}%
+  \newunit\newblock
+  \iftoggle{bbx:isbn}
+    {\printfield{isbn}}
+    {}%
+%   \newunit\newblock
+%   \usebibmacro{doi+eprint}%
+  \newunit\newblock
+  \usebibmacro{addendum+pubstate}%
+  \setunit{\bibpagerefpunct}\newblock
+  \usebibmacro{pageref}%
+  \newunit\newblock
+  \usebibmacro{related}%
+  \newunit
+  \printlist{language}%
+  \usebibmacro{finentry}
+}
+
+%% Declare 'incollection' (independent book chapter)
+\DeclareBibliographyDriver{incollection}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \mkbibbold{\usebibmacro{author/translator+others}}%
+  \setunit{\labelnamepunct}\newblock
+  \usebibmacro{title}%
+  \addcomma\space
+  \usebibmacro{chapter+pages}%
+  \newunit\newblock
+  \printtext{\textit{In}}%
+  \addspace
+  \usebibmacro{editor+others}%
+  \addcomma\space
+  \usebibmacro{maintitle+booktitle}%
+  \addcomma\space
+  \printfield{edition}%
+  \addcomma\space
+  \iffieldundef{maintitle}
+    {\printfield{volume}%
+     \printfield{part}}
+    {}%
+  \newunit
+  \printfield{volumes}%
+  \addcomma\space
+  \usebibmacro{series+number}%
+  \addperiod\space
+  \printfield{note}%
+  \addperiod\space
+  \usebibmacro{publisher+location}%
+  \newunit\newblock
+  \iftoggle{bbx:isbn}
+    {\printfield{isbn}}
+    {}%
+%   \newunit\newblock
+%   \usebibmacro{doi+eprint+url}%
+  \newunit\newblock
+  \usebibmacro{addendum+pubstate}%
+  \setunit{\bibpagerefpunct}\newblock
+  \usebibmacro{pageref}%
+  \newunit\newblock
+  \usebibmacro{related}%
+  \newunit
+  \printlist{language}%
+  \usebibmacro{finentry}
+}
+
+%% Declare 'inproceedings' (independent article in conference proceedings)
+\DeclareBibliographyDriver{inproceedings}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \mkbibbold{\usebibmacro{author/translator+others}}%
+  \setunit{\labelnamepunct}\newblock
+  \usebibmacro{title}%
+  \addcomma\space
+  \usebibmacro{chapter+pages}%
+  \newunit\newblock
+  \printtext{\textit{In}}%
+  \addspace
+  \usebibmacro{editor+others}%
+  \addcomma\space
+  \usebibmacro{maintitle+booktitle}%
+  \addcomma\space
+  \printfield{edition}%
+  \addcomma\space
+  \iffieldundef{maintitle}
+    {\printfield{volume}%
+     \printfield{part}}
+    {}%
+  \newunit
+  \printfield{volumes}%
+  \addcomma\space
+  \usebibmacro{series+number}%
+  \addperiod\space
+  \printfield{note}%
+  \addperiod\space
+  \usebibmacro{publisher+location}%
+  \newunit\newblock
+  \iftoggle{bbx:isbn}
+    {\printfield{isbn}}
+    {}%
+%   \newunit\newblock
+%   \usebibmacro{doi+eprint+url}%
+  \newunit\newblock
+  \usebibmacro{addendum+pubstate}%
+  \setunit{\bibpagerefpunct}\newblock
+  \usebibmacro{pageref}%
+  \newunit\newblock
+  \usebibmacro{related}%
+  \newunit
+  \printlist{language}%
+  \usebibmacro{finentry}
+}
+
+\endinput
