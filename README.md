@@ -11,7 +11,7 @@ In constructing the styles I referred to the author guidelines of each journal b
 This project as a whole and each style in particular are under continuous development and might therefore contain mistakes or bugs. Please report if you find any bug or missing feature.
 
 Copyright (C) 2012 Roey Angel  
-<angel@mpi-marburg.mpg.de>
+[angel[AT]mpi-marburg.mpg.de](angel@mpi-marburg.mpg.de)
 
 THIS PROGRAM COMES AS IS WITH ABSOLUTELY NO WARRANTY.
 This software is distributed under the terms of the GNU General Public License Version 3.
