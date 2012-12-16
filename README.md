@@ -33,4 +33,4 @@ The style and .bib source names should, of course, be replaced by the desired ci
 1. emi:     [*Environmental Microbiology*](http://bit.ly/S5C6ie)
 2. ismej:   [*The ISME Journal - Multidisciplinary Journal of Microbial Ecology*](http://bit.ly/YgJwEf)
 3. femsme:  [*FEMS Microbiology Ecology*](http://bit.ly/TXNQku)
-4. aem:     [*Applied and Environmental Microbiology*](http://bit.ly/RbpoSa)
+4. aem:     [*Applied and Environmental Microbiology*](http://bit.ly/RbpoSa) - *NEW! Conforms to the new 2013 citation scheme*
