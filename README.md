@@ -1,6 +1,8 @@
 # BIBEMME #
 ## Biblatex styles for journals of environmental microbiology and microbial ecology ##
 
+Biblatex is the modern way of working with citations in LaTeX documents. Together with biber it completely replaces the old BibTeX facilities. While it is easy to use and almost unlimited in flexibility it offers a relatively restricted number of citation styles. Unlike simply using biblatex, writing new citation styles is time consuming and non-trivial to the novice user. The aim of this project is to develop comprehensive citation styles to leading journals of environmental microbiology and microbial ecology requiring little to no tweaking on the user's side.
+
 All styles are designed to work with [biblatex](http://bit.ly/Sn6Bjx) 2.3 and above together with [biber](http://bit.ly/SjJLe6).  
 In constructing the styles I referred to the author guidelines of each journal but also to publications from latest issues, as there are occasional conflicts or missing guidelines regarding some types of sources or special cases. Each style defines explicitly the formatting of only the following bibtex reference types: article, book, incollection and inproceedings. Other types are too rare, and in any case are usually not formally described in the author guidelines.
 
