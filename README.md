@@ -10,7 +10,7 @@ In constructing the styles I referred to the author guidelines of each journal b
 ** Disclaimer **
 This project as a whole and each style in particular are under continuous development and might therefore contain mistakes or bugs. Please report if you find any bug or missing feature.
 
-Copyright (C) 2012 Roey Angel 
+Copyright (C) 2012 Roey Angel  
 <angel@mpi-marburg.mpg.de>
 
 THIS PROGRAM COMES AS IS WITH ABSOLUTELY NO WARRANTY.
