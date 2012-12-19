@@ -14,9 +14,9 @@ Copyright (C) 2012 Roey Angel
 angel[AT]mpi-marburg.mpg.de
 
 THIS PROGRAM COMES AS IS WITH ABSOLUTELY NO WARRANTY.
-This software is distributed under the terms of the GNU General Public License Version 3.
+This software is distributed under the terms of the [The LaTeX Project Public License].
 
-This project was inspired by Timothée Poisot's [ecobiblatex](http://bit.ly/10TlcHw) and I used his geb.bbx as a template.
+This project was inspired by Timothée Poisot's [ecobiblatex] and I used his geb.bbx as a template.
 
 ### Usage: ###
 Please refer to .bbx file of each individual style for specific usage instructions.  
@@ -34,3 +34,12 @@ The style and .bib source names should, of course, be replaced by the desired ci
 2. ismej:   [*The ISME Journal - Multidisciplinary Journal of Microbial Ecology*](http://bit.ly/YgJwEf)
 3. femsme:  [*FEMS Microbiology Ecology*](http://bit.ly/TXNQku)
 4. aem:     [*Applied and Environmental Microbiology*](http://bit.ly/RbpoSa) - *NEW! Conforms to the new 2013 citation scheme*
+
+[biblatex]: http://bit.ly/Sn6Bjx
+[biber]: http://bit.ly/SjJLe6
+[The LaTeX Project Public License]: http://bit.ly/U8CgHn
+[ecobiblatex]: http://bit.ly/10TlcHw
+[*Environmental Microbiology*]: http://bit.ly/S5C6ie
+[*The ISME Journal - Multidisciplinary Journal of Microbial Ecology*]: http://bit.ly/YgJwEf
+[*FEMS Microbiology Ecology*]: http://bit.ly/TXNQku
+[*Applied and Environmental Microbiology*]: http://bit.ly/RbpoSa
