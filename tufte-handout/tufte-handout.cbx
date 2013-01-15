@@ -1,0 +1,46 @@
+\ProvidesFile{tufte-handout.cbx}[biblatex style for my Tufte-style lab book based on FEMS Microbiology Ecology]
+
+\RequireCitationStyle{authoryear-comp}
+
+\newbibmacro*{cite}{%
+  \iffieldundef{shorthand}
+    {\ifthenelse{\ifnameundef{labelname}\OR\iffieldundef{labelyear}}
+       {\usebibmacro{cite:label}%
+	\setunit{\addspace}%
+	\usebibmacro{cite:labelyear+extrayear}\setunit{\addcomma\space}\usebibmacro{journal}%
+        \usebibmacro{cite:reinit}}
+       {\iffieldequals{namehash}{\cbx@lasthash}
+          {\ifthenelse{\iffieldequals{labelyear}{\cbx@lastyear}\AND
+                       \(\value{multicitecount}=0\OR\iffieldundef{postnote}\)}
+             {\setunit{\addcomma}%
+              \usebibmacro{cite:extrayear}}
+             {\setunit{\compcitedelim}%
+              \usebibmacro{cite:labelyear+extrayear}\setunit{\addcomma\space}\usebibmacro{journal}%
+              \savefield{labelyear}{\cbx@lastyear}}}
+          {\printnames{labelname}%
+  	   \setunit{\nameyeardelim}%
+           \usebibmacro{cite:labelyear+extrayear}\setunit{\addcomma\space}\usebibmacro{journal}%
+           \savefield{namehash}{\cbx@lasthash}%
+           \savefield{labelyear}{\cbx@lastyear}}}}
+    {\usebibmacro{cite:shorthand}%
+     \usebibmacro{cite:reinit}}%
+  \setunit{\multicitedelim}}
+
+\ExecuteBibliographyOptions{
+    maxcitenames = 2, % display only one cited author name (except if only 2) in citation
+    mincitenames = 1, % display at least one author in citation
+    sortcites = true, % sort multiple citations according to global sort option 
+    labelyear=true, % Whether or not to provide the special ﬁelds labelyear and extrayear.
+    uniquename=false, % Don't disambiguate individual names in the labelname list
+    uniquelist=false, % Don't disambiguate the labelname list
+  }
+
+%% Only the year is important
+\AtEveryCitekey{%
+  \clearfield{day}%
+  \clearfield{month}%
+  \clearfield{endday}%
+  \clearfield{endmonth}%
+}
+
+\endinput
