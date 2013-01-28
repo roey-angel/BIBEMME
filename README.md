@@ -30,10 +30,11 @@ The style and .bib source names should, of course, be replaced by the desired ci
 
 ## Currently available styles ##
 
-1. emi:     [*Environmental Microbiology*](http://bit.ly/S5C6ie)
-2. ismej:   [*The ISME Journal - Multidisciplinary Journal of Microbial Ecology*](http://bit.ly/YgJwEf)
-3. femsme:  [*FEMS Microbiology Ecology*](http://bit.ly/TXNQku)
-4. aem:     [*Applied and Environmental Microbiology*](http://bit.ly/RbpoSa) - *NEW! Conforms to the new 2013 citation scheme*
+1. emi:     [*Environmental Microbiology*]
+2. ismej:   [*The ISME Journal - Multidisciplinary Journal of Microbial Ecology*]
+3. femsme:  [*FEMS Microbiology Ecology*]
+4. aem:     [*Applied and Environmental Microbiology*] - *NEW! Conforms to the new 2013 citation scheme*
+5. tufte-handout: [*Tufte handouts style*] - not a journal but I use this document class for my own notes.
 
 [biblatex]: http://bit.ly/Sn6Bjx
 [biber]: http://bit.ly/SjJLe6
@@ -43,3 +44,4 @@ The style and .bib source names should, of course, be replaced by the desired ci
 [*The ISME Journal - Multidisciplinary Journal of Microbial Ecology*]: http://bit.ly/YgJwEf
 [*FEMS Microbiology Ecology*]: http://bit.ly/TXNQku
 [*Applied and Environmental Microbiology*]: http://bit.ly/RbpoSa
+[*Tufte handouts style*]: http://bit.ly/Vjx3wk

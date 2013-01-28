@@ -3,7 +3,7 @@
 %% Notes:
 % 1. biblatex style for the journal Environmental Microbiology. According to the Author Guidelines (http://www.wiley.com/bw/submit.asp?ref=1462-2912)
 % 2. This style is intended to work with the biber processor. For instance, the journal abbreviations functionality (see below) cannot be achieved using bibtex. 
-% 3. Journal abbreviation is not a standard bibtex field. Abbreviation of journal names can be achieved however in two ways using a special biber.conf file in XML format or using the \DeclareSourcemap command (biblatex 2.2 above). For more infor see: http://tex.stackexchange.com/questions/76241/show-journal-abbreviation-in-reference-list-with-biblatex-biber?rq=1
+% 3. Journal abbreviation is not a standard bibtex field. Abbreviation of journal names can be achieved however in two ways using a special biber.conf file in XML format or using the \DeclareStyleSourcemap command (biblatex 2.2 above). For more infor see: http://tex.stackexchange.com/questions/76241/show-journal-abbreviation-in-reference-list-with-biblatex-biber?rq=1
 % 4. To deal with journal abbreviations I've prepared an additional file (JourAbs-Index_Medicus.map) with search and replace strings for some 50+ journals and their abbreviations. This file should be placed in the same directory as the LaTeX document. Naturally there are many other journals which I did not include but the file should be easily edited to extend the list (notice though that each journal should be inserted twice -- once using `\step[ fieldsource = journal,` and the other time using `\step[ fieldsource = journaltitle,`.
 % 5. Do note that different journals use slightly different abbreviations styles, so be sure to use the right .map file for the journal and edit it according to the journal style.
 % 6. According to EMI reference style, multiple citations should be sorted by year (e.g. (Pugsley, 1996; Matsunaga et al., 1997)) which conflicts with the alphabetical sorting in the references. The solution is to use \printbibliography[sorting=emi] in the document.
@@ -61,7 +61,7 @@
 
 %% EMI has quite a sadistic sorting scheme, but this seems to solve it (do not forget to call \printbibliography[sorting=emi])
 %% In addition: load journal abbreviations
-\DeclareSourcemap{%
+\DeclareStyleSourcemap{%
   \maps[datatype=bibtex]{%
     \map[overwrite]{%
       \step[fieldsource=author,match=\regexp{\s+and\s.+\s+and\s},final]
