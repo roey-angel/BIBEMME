@@ -164,7 +164,7 @@
   \usebibmacro{bibindex}%
   \usebibmacro{begentry}%
   \mkbibbold{\usebibmacro{author/translator+others}
-  \newunit\newblock}%
+    \newunit\newblock}%
   \printfield{year}
   \newunit\newblock
   \usebibmacro{title}%
@@ -195,7 +195,9 @@
 \DeclareBibliographyDriver{book}{%
   \usebibmacro{bibindex}%
   \usebibmacro{begentry}%
-  \mkbibbold{\usebibmacro{author/editor+others/translator+others}}%
+  \mkbibbold{\usebibmacro{author/editor+others/translator+others}%
+    \newunit\newblock}%
+  \printfield{year}
   \setunit{\labelnamepunct}\newblock
   \usebibmacro{maintitle+title}%
   \addcomma\space
@@ -240,7 +242,9 @@
 \DeclareBibliographyDriver{incollection}{%
   \usebibmacro{bibindex}%
   \usebibmacro{begentry}%
-  \mkbibbold{\usebibmacro{author/translator+others}}%
+  \mkbibbold{\usebibmacro{author/editor+others/translator+others}%
+    \newunit\newblock}%
+  \printfield{year}
   \setunit{\labelnamepunct}\newblock
   \usebibmacro{title}%
   \addcomma\space
@@ -287,7 +291,9 @@
 \DeclareBibliographyDriver{inproceedings}{%
   \usebibmacro{bibindex}%
   \usebibmacro{begentry}%
-  \mkbibbold{\usebibmacro{author/translator+others}}%
+  \mkbibbold{\usebibmacro{author/editor+others/translator+others}%
+    \newunit\newblock}%
+  \printfield{year}
   \setunit{\labelnamepunct}\newblock
   \usebibmacro{title}%
   \addcomma\space
