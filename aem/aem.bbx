@@ -86,7 +86,7 @@
 \DeclareFieldFormat[article,book,inbook,incollection,inproceedings,patent,thesis,unpublished]{title}{#1\isdot}
 
 % Redefine journal bibmacro so that journal name isn't affected by \MakeSentenceCase*
-\newbibmacro*{journal}{%
+\renewbibmacro*{journal}{%
   \iffieldundef{journaltitle}
     {}
     {\printtext[journaltitle]{%

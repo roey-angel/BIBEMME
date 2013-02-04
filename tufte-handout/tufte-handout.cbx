@@ -2,7 +2,7 @@
 
 \RequireCitationStyle{authoryear-comp}
 
-\newbibmacro*{cite}{%
+\renewbibmacro*{cite}{%
   \iffieldundef{shorthand}
     {\ifthenelse{\ifnameundef{labelname}\OR\iffieldundef{labelyear}}
        {\usebibmacro{cite:label}%
