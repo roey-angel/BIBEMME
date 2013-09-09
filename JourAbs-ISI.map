@@ -177,6 +177,9 @@
        \step[ fieldsource = journal,
       		match = \regexp{Systematic\sand\sApplied\sMicrobiology},
       		replace = {{Syst Appl Microbiol}}]
+       \step[ fieldsource = journal,
+      		match = \regexp{Wiley\sInterdisciplinary\sReviews:\sClimate\sChange},
+      		replace = {{Wiley Interdiscip Rev Clim Change}}]
        \step[ fieldsource = journaltitle,
       		match = \regexp{The\sAmerican\sNaturalist},
       		replace = {{Am Nat}}]
@@ -345,4 +348,7 @@
        \step[ fieldsource = journaltitle,
       		match = \regexp{Systematic\sand\sApplied\sMicrobiology},
       		replace = {{Syst Appl Microbiol}}]
+       \step[ fieldsource = journaltitle,
+      		match = \regexp{Wiley\sInterdisciplinary\sReviews:\sClimate\sChange},
+      		replace = {{Wiley Interdiscip Rev Clim Change}}]
     }

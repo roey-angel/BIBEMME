@@ -185,9 +185,10 @@
   \newunit
   \usebibmacro{byeditor+others}%
   \newunit
-  \usebibmacro{note+pages}%
-%   \newunit\newblock
-%   \usebibmacro{doi+eprint}%
+%    \usebibmacro{note+pages}%
+  \printfield{pages}%
+  \newunit\newblock
+  \printfield{url}%
   \newunit\newblock
   \usebibmacro{addendum+pubstate}%
   \setunit{\bibpagerefpunct}\newblock
@@ -195,7 +196,7 @@
   \newunit\newblock
   \usebibmacro{related}%
   \newunit
-  \printlist{language}%
+%  \printlist{language}%
   \usebibmacro{finentry}
 }
 
@@ -220,7 +221,7 @@
   \newunit\newblock
   \usebibmacro{series+number}%
   \newunit\newblock
-  \printfield{note}%
+  %\printfield{note}%
   \newunit\newblock
   \usebibmacro{location+publisher}%
   \newunit\newblock
@@ -231,8 +232,8 @@
   \iftoggle{bbx:isbn}
     {\printfield{isbn}}
     {}%
-%   \newunit\newblock
-%   \usebibmacro{doi+eprint}%
+  \newunit\newblock
+  \printfield{url}%
   \newunit\newblock
   \usebibmacro{addendum+pubstate}%
   \setunit{\bibpagerefpunct}\newblock
@@ -240,7 +241,7 @@
   \newunit\newblock
   \usebibmacro{related}%
   \newunit
-  \printlist{language}%
+%  \printlist{language}%
   \usebibmacro{finentry}
 }
 
@@ -269,7 +270,7 @@
   \newunit\newblock
   \usebibmacro{series+number}%
   \newunit\newblock
-  \printfield{note}%
+  %\printfield{note}%
   \newunit\newblock
   \usebibmacro{chapter+pages}%
   \newunit\newblock
@@ -278,8 +279,8 @@
   \iftoggle{bbx:isbn}
     {\printfield{isbn}}
     {}%
-%   \newunit\newblock
-%   \usebibmacro{doi+eprint+url}%
+  \newunit\newblock
+  \printfield{url}%
   \newunit\newblock
   \usebibmacro{addendum+pubstate}%
   \setunit{\bibpagerefpunct}\newblock
@@ -287,7 +288,7 @@
   \newunit\newblock
   \usebibmacro{related}%
   \newunit
-  \printlist{language}%
+%  \printlist{language}%
   \usebibmacro{finentry}
 }
 
@@ -316,7 +317,7 @@
   \newunit\newblock
   \usebibmacro{series+number}%
   \newunit\newblock
-  \printfield{note}%
+  %\printfield{note}%
   \newunit\newblock
   \usebibmacro{chapter+pages}%
   \newunit\newblock
@@ -325,8 +326,8 @@
   \iftoggle{bbx:isbn}
     {\printfield{isbn}}
     {}%
-%   \newunit\newblock
-%   \usebibmacro{doi+eprint+url}%
+  \newunit\newblock
+  \printfield{url}%
   \newunit\newblock
   \usebibmacro{addendum+pubstate}%
   \setunit{\bibpagerefpunct}\newblock
@@ -334,7 +335,7 @@
   \newunit\newblock
   \usebibmacro{related}%
   \newunit
-  \printlist{language}%
+%  \printlist{language}%
   \usebibmacro{finentry}
 }
 
