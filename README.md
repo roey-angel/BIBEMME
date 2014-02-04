@@ -7,7 +7,7 @@ All styles are designed to work with [biblatex](http://bit.ly/Sn6Bjx) 2.3 and ab
 In constructing the styles I referred to the author guidelines of each journal but also to publications from latest issues, as there are occasional conflicts or missing guidelines regarding some types of sources or special cases. Each style defines explicitly the formatting of only the following bibtex reference types: article, book, incollection and inproceedings. Other types are too rare, and in any case are usually not formally described in the author guidelines.
 
 
-** Disclaimer **
+**Disclaimer**  
 This project as a whole and each style in particular are under continuous development and might therefore contain mistakes or bugs. Please report if you find any bug or missing feature.
 
 Copyright (C) 2012 Roey Angel  
