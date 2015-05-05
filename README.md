@@ -21,7 +21,7 @@ This project was inspired by Timothée Poisot's [ecobiblatex] and I used his geb
 ### Usage: ###
 Please refer to .bbx file of each individual style for specific usage instructions.  
 
-1. Place the .bbx and .cbx files in your tex path (e.g. `$TEXMFLOCAL/tex/latex/biblatex` in linux) and add the following to the preamble:  
+1. Place the .bbx and .cbx files in your tex path (e.g. `$TEXMFHOME/texmf-var/tex/latex/biblatex` in linux) and add the following to the preamble:  
 `\usepackage[style=STYLE_NAME, natbib=true, backend=biber]{biblatex}`  
 `\addbibresource{YOUR_BIB_FILE.bib}`
 The style and .bib source names should, of course, be replaced by the desired citation style and your personal bibtex collection file.  
